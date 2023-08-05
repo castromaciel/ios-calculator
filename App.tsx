@@ -1,10 +1,17 @@
-import { Text, View } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
+import { MainScreen } from './src/screens';
+import { app } from './src/theme';
 
 const App = () => {
   return (
-    <View>
-      <Text>ios Calculator</Text>
-    </View>
+    <SafeAreaView style={app.background}>
+      <StatusBar
+        backgroundColor='black'
+        barStyle='light-content'
+      />
+      
+      <MainScreen />
+    </SafeAreaView>
   )
 }
 

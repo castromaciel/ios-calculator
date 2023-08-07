@@ -1,23 +1,43 @@
 import { FC } from 'react'
-import { ColorValue, StyleSheet, Text, View } from 'react-native'
+import { ColorValue, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface Props {
   label: string
   backgroundColor?: ColorValue
   color?: ColorValue
+  isLarge?: boolean
+  onPress: ((value: string) => void)
 }
 
 const CustomButton: FC<Props> = ({
   label = '1',
   backgroundColor = '#9b9b9b',
-  color = '#000000'
+  color = '#000000',
+  isLarge = false,
+  onPress
 }) => {
   return (
-    <View style={{ ...styles.button, backgroundColor }}>
-      <Text style={{...styles.textButton, color}}>
-        { label }
-      </Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => onPress(label)}
+    >
+      <View
+        style={{
+          ...styles.button,
+          backgroundColor,
+          width: isLarge ? 168 : 80
+        }}
+      >
+        <Text
+          style={{
+          ...styles.textButton,
+          color,
+          textAlign: isLarge ? 'left' : 'center'
+          }}
+        >
+          { label }
+        </Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
@@ -35,7 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     padding: 10,
-    textAlign: 'center',
   }
 })
 

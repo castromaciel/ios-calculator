@@ -9,7 +9,40 @@ const MainScreen = () => {
   const clearResult = () => setResult('0')
 
   const generateNumber = (clickedNumber: string) => {
-    setResult(result.concat(clickedNumber))
+
+    if (result.includes('.') && clickedNumber === '.') return
+
+    if (result.startsWith('0') || result.startsWith('-0')) {
+
+      if (clickedNumber === '.') {
+        setResult(result.concat(clickedNumber))
+
+      } else if (clickedNumber === '0' && result.includes('.')) {
+        setResult(result.concat(clickedNumber))
+
+      } else if (clickedNumber !== '0' && !result.includes('.')) {
+        setResult(clickedNumber)
+
+      } else if (clickedNumber === '0' && !result.includes('.')) {
+        setResult(result)
+
+      } else {
+        setResult(result.concat(clickedNumber))
+
+      }
+
+    } else {
+      setResult(result.concat(clickedNumber))
+    }
+
+  }
+
+  const positivoNegativo = () => {
+    if(result.includes('-')) {
+      setResult(result.replace('-', ''))
+    } else {
+      setResult('-' + result)
+    }
   }
 
   return (
@@ -27,9 +60,16 @@ const MainScreen = () => {
 
       <View style={styles.row}>
         <CustomButton label='C' onPress={clearResult}/>
-        <CustomButton onPress={generateNumber} label='+/-' />
+        <CustomButton onPress={positivoNegativo} label='+/-' />
         <CustomButton onPress={generateNumber} label='%' />
         <CustomButton onPress={generateNumber} color='#ffffff' label='/' backgroundColor='#ff9427' />
+      </View>
+
+      <View style={styles.row}>
+        <CustomButton onPress={generateNumber} color='#ffffff' label='7' backgroundColor='#2d2d2d'/>
+        <CustomButton onPress={generateNumber} color='#ffffff' label='8' backgroundColor='#2d2d2d'/>
+        <CustomButton onPress={generateNumber} color='#ffffff' label='9' backgroundColor='#2d2d2d'/>
+        <CustomButton onPress={generateNumber} color='#ffffff' label='x' backgroundColor='#ff9427' />
       </View>
 
       <View style={styles.row}>
